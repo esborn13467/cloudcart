@@ -7,6 +7,8 @@ from django.contrib.auth import login, authenticate
 # Create your views here.
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('core:index'))
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST or None)
         if form.is_valid():
