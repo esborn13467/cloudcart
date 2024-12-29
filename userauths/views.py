@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from userauths.forms import UserRegistrationForm
+from userauths.forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import login, authenticate
 # Create your views here.
 
@@ -27,3 +27,27 @@ def register(request):
         'form': form,
     }
     return render(request, 'register.html', context)
+
+
+def loggin(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('core:index'))
+
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect(reverse('core:index'))
+            else:
+                messages.error(request, 'Invalid email or password')
+    else:
+        form = UserLoginForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'login.html', context)
