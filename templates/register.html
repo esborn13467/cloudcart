@@ -43,7 +43,11 @@
                 <span class="login100-form-title p-b-34 p-t-10">
 						Register
 					</span>
-
+                {% if form.errors %}
+                <div class="alert alert-d anger">
+                    <strong>{{ form.errors }}</strong>
+                </div>
+                {% endif %}
                 <div class="wrap-input100 validate-input" data-validate="Enter username">
                     <input class="input100" type="text" name="username" placeholder="Username">
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
@@ -97,7 +101,7 @@
             let password = document.querySelector('input[name="password1"]').value;
             let username = document.querySelector('input[name="username"]').value;
 
-            // Check if the password meets the requirements
+            // Check if the pass word meets the requirements
             let errors = [];
             if (password.length < 8) {
                 errors.push('Password must be at least 8 characters long.');
