@@ -84,6 +84,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
+    old_price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
     specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
     tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
