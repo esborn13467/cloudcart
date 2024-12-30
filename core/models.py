@@ -108,7 +108,7 @@ class Product(models.Model):
         return self.title
 
     def get_percentage(self):
-        new_price = (self.price/self.old_price)*100
+        new_price = (self.price / self.old_price) * 100
         return new_price
 
 
@@ -119,8 +119,6 @@ class ProductImages(models.Model):
 
     class Meta:
         verbose_name_plural = "Product Images"
-
-
 
 
 class CartOrder(models.Model):
@@ -134,7 +132,6 @@ class CartOrder(models.Model):
         verbose_name_plural = "Cart Order"
 
 
-
 class CartOrderItems(models.Model):
     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
@@ -144,10 +141,46 @@ class CartOrderItems(models.Model):
     price = models.DecimalField(max_digits=9999999999, decimal_places=2, default="0.00")
     total = models.DecimalField(max_digits=9999999999, decimal_places=2, default="0.00")
 
-
     class Meta:
         verbose_name_plural = "Cart Order Items"
 
-
     def order_image(self):
         return mark_safe('<img src="/media/{self.image}" width="40" height="40" />')
+
+
+class ProductReview(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    review = models.TextField()
+    rating = models.IntegerField(choices=RATING, default=None)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Product Reviews"
+
+    def __str__(self):
+        return self.product.title
+
+    def get_rating(self):
+        return self.rating
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Wishlists"
+
+    def __str__(self):
+        return self.product.title
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    address = models.CharField(max_length=200, null=True)
+    status = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = "Addresses"
