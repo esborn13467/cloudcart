@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -36,7 +38,7 @@
         <div class="wrap-login100">
             <form class="login100-form validate-form" method="POST" action="login" id="loginForm">
                 {% csrf_token %}
-					<span class="login100-form-logo">
+                <span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
 
@@ -44,9 +46,9 @@
 						Login
 					</span>
                 {% if form.errors %}
-                <div class="alert alert-d anger">
-                    <strong>{{ form.errors }}</strong>
-                </div>
+                    <div class="alert alert-d anger">
+                        <strong>{{ form.errors }}</strong>
+                    </div>
                 {% endif %}
                 <div class="wrap-input100 validate-input" data-validate="Enter email">
                     <input class="input100" type="email" name="email" placeholder="Email">
@@ -71,9 +73,14 @@
                     </button>
                 </div>
 
-                <div class="text-center p-t-90">
+                <div class="text-center p-t-30">
                     <a class="txt1" href="#">
                         Forgot Password?
+                    </a>
+                </div>
+                <div class="text-center p-t-10">
+                    <a class="txt1" href="{% url 'userauths:register' %}">
+                        Don't have an account? Click here to register
                     </a>
                 </div>
             </form>
@@ -82,9 +89,30 @@
 </div>
 
 <div id="dropDownSelect1"></div>
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            Swal.fire({
+                text: "{{ message }}",
+                icon: "{{ message.tags }}",
+                timer: 20000,
+            });
+        {% endfor %}
+    </script>
+{% endif %}{% if messages %}
+    <script>
+        {% for message in messages %}
+            Swal.fire({
+                text: "{{ message }}",
+                icon: "{{ message.tags }}",
+                timer: 20000,
+            });
+        {% endfor %}
+    </script>
+{% endif %}
 <script>
     // this is a backup of the html implementation of the required tag in the inputs
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Add a submit event listener to the login form to validate the email and password before submission
         document.getElementById('loginForm').addEventListener('submit', function (event) {
             // Retrieve the values of the email and password input fields
