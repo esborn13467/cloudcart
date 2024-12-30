@@ -15,6 +15,8 @@
     <meta name="author" content="">
     <!-- bootstrap css -->
     {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
@@ -127,7 +129,7 @@
                     <div class="lang_box ml-2">
                         <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-angle-down" aria-hidden="true"></i>
-{#                            <i class="text-dark bi bi-box-arrow-left ml-2" aria-hidden="true"></i>#}
+                            {#                            <i class="text-dark bi bi-box-arrow-left ml-2" aria-hidden="true"></i>#}
                         </a>
                         <div class="dropdown-menu ">
                             <a href="{% url 'userauths:logout' %}" class="dropdown-item">
@@ -635,6 +637,17 @@
 </div>
 <!-- copyright section end -->
 <!-- Javascript files-->
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            Swal.fire({
+                text: "{{ message }}",
+                icon: "{{ message.tags }}",
+                timer: 20000,
+            });
+        {% endfor %}
+    </script>
+{% endif %}
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/popper.min.js"></script>
 <script src="../static/js/bootstrap.bundle.min.js"></script>
