@@ -4,6 +4,10 @@ from django.urls import reverse
 
 from userauths.forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import login, authenticate, logout
+
+from userauths.models import User
+
+
 # Create your views here.
 
 def register(request):
@@ -19,16 +23,16 @@ def register(request):
             login(request, new_user)
             return redirect(reverse('core:index'))
         else:
-            # Print form errors to the console for debugging
-            print(form.errors)
-            messages.error(request, "There was an error with your submission. Please check the form and try again.")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
     else:
         form = UserRegistrationForm()
 
     context = {
         'form': form,
     }
-    return render(request, 'register.html', context)
+    return render(request, 'authentication/register.html', context)
 
 
 def loggin(request):
@@ -45,14 +49,21 @@ def loggin(request):
                 login(request, user)
                 return redirect(reverse('core:index'))
             else:
-                messages.error(request, 'Invalid email or password')
+                if not User.objects.filter(email=email).exists():
+                    messages.error(request, 'Invalid email')
+                else:
+                    messages.error(request, 'Invalid password')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
     else:
         form = UserLoginForm()
 
     context = {
         'form': form,
     }
-    return render(request, 'login.html', context)
+    return render(request, 'authentication/login.html', context)
 
 
 def loggout(request):
