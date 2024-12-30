@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from userauths.forms import UserRegistrationForm, UserLoginForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 # Create your views here.
 
 def register(request):
@@ -53,3 +53,9 @@ def loggin(request):
         'form': form,
     }
     return render(request, 'login.html', context)
+
+
+def loggout(request):
+    logout(request)
+    messages.error(request, 'You have been logged out')
+    return redirect(reverse('userauths:login'))
