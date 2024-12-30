@@ -47,6 +47,7 @@ def loggin(request):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, f"Welcome back {user.username}")
                 return redirect(reverse('core:index'))
             else:
                 if not User.objects.filter(email=email).exists():
