@@ -4,11 +4,14 @@ from core.models import Category, Vendor, Product, ProductImages, CartOrder, Car
 
 
 # Register your models here.
-class ProductImagesAdmin(admin.TabularInline):
-    model = ProductImages
+class ProductImagesAdmin(admin.ModelAdmin):
+    list_display = ['product', 'images']
+    list_filter = ['product']
+    search_fields = ['product__title']
+
+
 
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductImagesAdmin]
     list_display = ['user', 'title', 'product_image', 'price', 'featured', 'product_status']
 
 
@@ -41,6 +44,7 @@ class AddressAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductImages, ProductImagesAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(CartOrder, CartOderAdmin)
