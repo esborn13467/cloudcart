@@ -7,7 +7,6 @@ from core.models import Category, Vendor, Product, ProductImages, CartOrder, Car
 class ProductImagesAdmin(admin.TabularInline):
     model = ProductImages
 
-
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImagesAdmin]
     list_display = ['user', 'title', 'product_image', 'price', 'featured', 'product_status']

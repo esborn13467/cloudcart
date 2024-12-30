@@ -86,7 +86,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
     old_price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
     specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
-    tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
     product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
     status = models.BooleanField(default=True)
@@ -103,7 +103,7 @@ class Product(models.Model):
         verbose_name_plural = "Products"
 
     def product_image(self):
-        return mark_safe('<img src="{self.image.url}" width="40" height="40" />')
+        return mark_safe('<img src="%s" width="40" height="40" />' % self.image.url)
 
     def __str__(self):
         return self.title
@@ -116,6 +116,7 @@ class Product(models.Model):
 class ProductImages(models.Model):
     images = models.ImageField(upload_to="product_images", default="product.jpg")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    # product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
