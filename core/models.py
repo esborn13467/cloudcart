@@ -4,6 +4,25 @@ from django.utils.html import mark_safe
 
 from userauths.models import User
 
+STATUS_CHOICE = (
+    ("process", "Processing"),
+    ("delivered", "Delivered"),
+)
+STATUS = (
+    ("draft", "Draft"),
+    ("disabled", "Disabled"),
+    ("rejected", "Rejected"),
+    ("in_review", "In_Review"),
+    ("published", "Published"),
+)
+RATING = (
+    (1, "✯✰✰✰✰"),
+    (2, "✯✯✰✰✰"),
+    (3, "✯✯✯✰✰"),
+    (4, "✯✯✯✯✰"),
+    (5, "✯✯✯✯✯"),
+)
+
 
 # Create your models here.
 
@@ -12,8 +31,8 @@ def user_directory_path(instance, filename):
 
 
 class Category(models.Model):
-    cid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='category', alphabet=abcdefghij)
-    title = models.CharField(max_length=100)
+    cid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='category', alphabet="abcdefghij")
+    title = models.CharField(max_length=100, default="Category Title")
     image = models.ImageField(upload_to="category")
 
     class Meta:
@@ -26,11 +45,15 @@ class Category(models.Model):
         return self.title
 
 
+class Tags(models.Model):
+    pass
+
+
 class Vendor(models.Model):
-    vid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='vendor', alphabet=abcdefghij)
-    title = models.CharField(max_length=100)
+    vid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='vendor', alphabet="abcdefghij")
+    title = models.CharField(max_length=100, default="Vendor title")
     image = models.ImageField(upload_to="vendor")
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, default="This is the vendor description")
     address = models.CharField(max_length=100, default="Nairobi")
     contact = models.CharField(max_length=100, default="0712345678")
     chat_response_time = models.CharField(max_length=100, default="100")
@@ -49,3 +72,82 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Product(models.Model):
+    pid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='product', alphabet="abcdefghij")
+    title = models.CharField(max_length=100, default="Product title")
+    image = models.ImageField(upload_to="user_directory_path", default="product.jpg")
+    description = models.TextField(null=True, blank=True, default="This is the product description")
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+
+    price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
+    specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
+    tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+
+    product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
+    status = models.BooleanField(default=True)
+    in_stock = models.BooleanField(default=True)
+    featured = models.BooleanField(default=False)
+    digital = models.BooleanField(default=False)
+
+    sku = ShortUUIDField(unique=True, length=5, max_length=30, prefix='sku', alphabet="1234567890")
+
+    date = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Products"
+
+    def product_image(self):
+        return mark_safe('<img src="{self.image.url}" width="40" height="40" />')
+
+    def __str__(self):
+        return self.title
+
+    def get_percentage(self):
+        new_price = (self.price/self.old_price)*100
+        return new_price
+
+
+class ProductImages(models.Model):
+    images = models.ImageField(upload_to="product_images", default="product.jpg")
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Product Images"
+
+
+
+
+class CartOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=9999999999999, decimal_places=2, default="0.00")
+    paid_status = models.BooleanField(default=False)
+    order_date = models.DateTimeField(auto_now_add=True)
+    product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
+
+    class Meta:
+        verbose_name_plural = "Cart Order"
+
+
+
+class CartOrderItems(models.Model):
+    order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
+    product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
+    item = models.CharField(max_length=200)
+    image = models.CharField(max_length=200)
+    quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=9999999999, decimal_places=2, default="0.00")
+    total = models.DecimalField(max_digits=9999999999, decimal_places=2, default="0.00")
+
+
+    class Meta:
+        verbose_name_plural = "Cart Order Items"
+
+
+    def order_image(self):
+        return mark_safe('<img src="/media/{self.image}" width="40" height="40" />')
