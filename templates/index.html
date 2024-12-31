@@ -775,7 +775,17 @@
     </div>
 </footer>
 <!-- Footer Section End -->
-
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            Swal.fire({
+                text: "{{ message }}",
+                icon: "{{ message.tags }}",
+                timer: 20000,
+            });
+        {% endfor %}
+    </script>
+{% endif %}
 <!-- Js Plugins -->
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
