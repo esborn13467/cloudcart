@@ -66,6 +66,7 @@
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
             <li class="active"><a href="{% url 'core:index' %}">Home</a></li>
+            <li><a href="{% url 'core:categories' %}">Categories</a></li>
             <li><a href="{% url 'core:shop-grid' %}">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
@@ -145,6 +146,7 @@
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="{% url 'core:index' %}">Home</a></li>
+                        <li><a href="{% url 'core:categories' %}">Categories</a></li>
                         <li><a href="{% url 'core:shop-grid' %}">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
@@ -224,7 +226,7 @@
                     <h2>{{ breadcrumb_title }}</h2>
                     <div class="breadcrumb__option">
                         <a href="{% url 'core:index' %}">Home</a>
-                        <span>{{ breadcrumb_title }}</span>
+                        <span>{{ breadcrumb_subtitle }}</span>
                     </div>
                 </div>
             </div>
