@@ -10,5 +10,6 @@ urlpatterns = [
     path('shop-details/', views.shop_details, name='shop-details'),
     path('shop-grid/', views.shop_grid, name='shop-grid'),
     path('shoping-cart/', views.shoping_cart, name='shoping-cart'),
+    path('category/<str:title>/', views.category, name='category'),
 
     ]
