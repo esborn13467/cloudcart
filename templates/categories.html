@@ -7,6 +7,9 @@
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
+        <div class="mx-2 my-3">
+            <h4>{{ global_categories.count }} Categories</h4>
+        </div>
             <div class="row">
                 {% for c in global_categories %}
                     <div class="col-lg-4 col-md-6 col-sm-6">
@@ -28,7 +31,7 @@
                 {% endfor %}
 
             </div>
-{#        TODO implement pagination here#}
+            {#        TODO implement pagination here#}
             <div class="product__pagination">
                 <a href="#">1</a>
                 <a href="#">2</a>
