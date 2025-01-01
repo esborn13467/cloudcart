@@ -20,20 +20,35 @@ def index(request):
 
 
 def checkout(request):
-    return render(request, 'checkout.html')
+    context = {
+        'breadcrumb_title': 'Checkout'
+    }
+    return render(request, 'checkout.html', context)
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    context = {
+        'breadcrumb_title': 'Contact'
+    }
+    return render(request, 'contact.html', context)
 
 
 def shop_details(request):
-    return render(request, 'shop-details.html')
+    context = {
+        'breadcrumb_title': 'Shop-details'
+    }
+    return render(request, 'shop-details.html', context)
 
 
 def shop_grid(request):
-    return render(request, 'shop-grid.html')
+    context = {
+        'breadcrumb_title': 'Shop'
+    }
+    return render(request, 'shop-grid.html', context)
 
 
 def shoping_cart(request):
-    return render(request, 'shoping-cart.html')
+    context = {
+        'breadcrumb_title': 'Shoping Cart'
+    }
+    return render(request, 'shoping-cart.html', context)
