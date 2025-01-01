@@ -5,7 +5,7 @@ from core.models import Category, Vendor, Product, ProductImages, CartOrder, Car
 
 # Register your models here.
 class ProductImagesAdmin(admin.ModelAdmin):
-    list_display = ['product', 'images']
+    list_display = ['product', 'product_image']
     list_filter = ['product']
     search_fields = ['product__title']
 

@@ -39,7 +39,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     def category_image(self):
-        return mark_safe('<img src="{self.image.url}" width="40" height="40" />')
+        return mark_safe('<img src="%s" width="40" height="40" />' % self.image.url)
 
     def __str__(self):
         return self.title
@@ -68,7 +68,7 @@ class Vendor(models.Model):
         verbose_name_plural = "Vendors"
 
     def vendor_image(self):
-        return mark_safe('<img src="{self.image.url}" width="40" height="40" />')
+        return mark_safe('<img src="%s" width="40" height="40" />' % self.image.url)
 
     def __str__(self):
         return self.title
@@ -82,6 +82,7 @@ class Product(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
 
     price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
     old_price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
@@ -122,6 +123,9 @@ class ProductImages(models.Model):
     class Meta:
         verbose_name_plural = "Product Images"
 
+    def product_image(self):
+        return mark_safe('<img src="%s" width="40" height="40" />' % self.images.url)
+
 
 class CartOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -148,7 +152,7 @@ class CartOrderItems(models.Model):
         verbose_name_plural = "Cart Order Items"
 
     def order_image(self):
-        return mark_safe('<img src="/media/{self.image}" width="40" height="40" />')
+        return mark_safe('<img src="/media/%s" width="40" height="40" />' % self.image)
 
 
 class ProductReview(models.Model):
