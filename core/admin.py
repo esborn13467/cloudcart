@@ -12,7 +12,7 @@ class ProductImagesAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['user', 'title', 'product_image', 'price', 'featured', 'product_status']
+    list_display = ['user', 'title', 'product_image', 'category', 'price','vendor', 'featured', 'product_status']
 
 
 class CategoryAdmin(admin.ModelAdmin):
