@@ -21,26 +21,22 @@ def index(request):
 
 def category(request, title):
     category = Category.objects.get(title=title)
-    product = Product.objects.filter(category=category).order_by("-date")
+    product = Product.objects.filter(category=category, product_status="published").order_by("-date")
 
     context = {
         'category': category,
         'products': product,
         'breadcrumb_title': title,
-        'breadcrumb_subtitle': "Categories/"+title
+        'breadcrumb_subtitle': "Categories/" + title
     }
 
     return render(request, 'category.html', context)
 
 
 def categories(request):
-    product = Product.objects.all()
-
     context = {
-        'products': product,
         'breadcrumb_title': "Categories",
         'breadcrumb_subtitle': "Categories"
-
     }
 
     return render(request, 'categories.html', context)
@@ -73,7 +69,7 @@ def shop_details(request):
 def shop_grid(request):
     product = Product.objects.all().order_by("-date")
     context = {
-        'all_products':product,
+        'all_products': product,
         'breadcrumb_title': 'Shop',
         'breadcrumb_subtitle': 'Shop'
     }
