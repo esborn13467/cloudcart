@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.context_processors import request
 
 from core.models import Product, Category
 
@@ -18,9 +19,21 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def electronic(request):
-    return render(request, 'electronic.html')
+def checkout(request):
+    return render(request, 'checkout.html')
 
 
-def fashion(request):
-    return render(request, 'fashion.html')
+def contact(request):
+    return render(request, 'contact.html')
+
+
+def shop_details(request):
+    return render(request, 'shop-details.html')
+
+
+def shop_grid(request):
+    return render(request, 'shop-grid.html')
+
+
+def shoping_cart(request):
+    return render(request, 'shoping-cart.html')
