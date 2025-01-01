@@ -1,3 +1,5 @@
+from itertools import product
+
 from django.shortcuts import render
 from django.template.context_processors import request
 
@@ -10,7 +12,7 @@ def index(request):
     featured_product = Product.objects.filter(product_status="published", featured=True).order_by("-date")
 
     context = {
-        'all_products': product,
+        'products': product,
         'featured_products': featured_product,
     }
 
@@ -39,7 +41,9 @@ def shop_details(request):
 
 
 def shop_grid(request):
+    product = Product.objects.all().order_by("-date")
     context = {
+        'all_products':product,
         'breadcrumb_title': 'Shop'
     }
     return render(request, 'shop-grid.html', context)
