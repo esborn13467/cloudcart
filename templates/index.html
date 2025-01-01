@@ -70,10 +70,8 @@
                     <li><a href="./shop-details.html">Shop Details</a></li>
                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                     <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
                 </ul>
             </li>
-            <li><a href="./blog.html">Blog</a></li>
             <li><a href="./contact.html">Contact</a></li>
         </ul>
     </nav>
@@ -86,7 +84,7 @@
     </div>
     <div class="humberger__menu__contact">
         <ul>
-            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+            <li><i class="fa fa-envelope"></i> info@cloudcart.co.ke</li>
             <li>Free Shipping for all Order of KSH99</li>
         </ul>
     </div>
@@ -101,7 +99,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                            <li><i class="fa fa-envelope"></i> info@cloudcart.co.ke</li>
                             <li>Free Shipping for all Order of KSH99</li>
                         </ul>
                     </div>
@@ -151,10 +149,8 @@
                                 <li><a href="./shop-details.html">Shop Details</a></li>
                                 <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                                 <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Blog</a></li>
                         <li><a href="./contact.html">Contact</a></li>
                     </ul>
                 </nav>
@@ -187,17 +183,9 @@
                         <span>All departments</span>
                     </div>
                     <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                        {% for c in categories %}
+                        <li><a href="#">{{ c.title }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -242,31 +230,13 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
+                {% for c in categories %}
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{% static 'images/categories/cat-1.jpg' %}">
-                        <h5><a href="#">Fresh Fruit</a></h5>
+                    <div class="categories__item set-bg" data-setbg="{{ c.image.url }}">
+                        <h5><a href="#">{{ c.title }}</a></h5>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="images/categories/cat-2.jpg">
-                        <h5><a href="#">Dried Fruit</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="images/categories/cat-3.jpg">
-                        <h5><a href="#">Vegetables</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="images/categories/cat-4.jpg">
-                        <h5><a href="#">drink fruits</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="images/categories/cat-5.jpg">
-                        <h5><a href="#">drink fruits</a></h5>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -286,9 +256,6 @@
                         <li class="active" data-filter="*">All</li>
                         {% for c in categories %}
                         <li data-filter=".{{ c.title }}">{{ c.title }}</li>
-{#                        <li data-filter=".fresh-meat">Fresh Meat</li>#}
-{#                        <li data-filter=".vegetables">Vegetables</li>#}
-{#                        <li data-filter=".fastfood">Fastfood</li>#}
                         {% endfor %}
                     </ul>
                 </div>
@@ -660,7 +627,7 @@
                     <ul>
                         <li>Address: 60-49 Road 11378 New York</li>
                         <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello@colorlib.com</li>
+                        <li>Email: info@cloudcart.co.ke</li>
                     </ul>
                 </div>
             </div>
