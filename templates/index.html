@@ -183,7 +183,7 @@
                         <span>All departments</span>
                     </div>
                     <ul>
-                        {% for c in categories %}
+                        {% for c in global_categories %}
                             <li><a href="#">{{ c.title }}</a></li>
                         {% endfor %}
                     </ul>
@@ -230,7 +230,7 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                {% for c in categories %}
+                {% for c in global_categories %}
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="{{ c.image.url }}">
                             <h5><a href="#">{{ c.title }}</a></h5>
@@ -254,7 +254,7 @@
                 <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">All</li>
-                        {% for c in categories %}
+                        {% for c in global_categories %}
                             <li data-filter=".{{ c.title }}">{{ c.title }}</li>
                         {% endfor %}
                     </ul>
