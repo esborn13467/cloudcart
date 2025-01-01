@@ -184,7 +184,7 @@
                     </div>
                     <ul>
                         {% for c in categories %}
-                        <li><a href="#">{{ c.title }}</a></li>
+                            <li><a href="#">{{ c.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -231,11 +231,11 @@
         <div class="row">
             <div class="categories__slider owl-carousel">
                 {% for c in categories %}
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{{ c.image.url }}">
-                        <h5><a href="#">{{ c.title }}</a></h5>
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="{{ c.image.url }}">
+                            <h5><a href="#">{{ c.title }}</a></h5>
+                        </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         </div>
@@ -255,7 +255,7 @@
                     <ul>
                         <li class="active" data-filter="*">All</li>
                         {% for c in categories %}
-                        <li data-filter=".{{ c.title }}">{{ c.title }}</li>
+                            <li data-filter=".{{ c.title }}">{{ c.title }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -267,7 +267,7 @@
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg"
                              data-setbg="{{ p.image.url }}">
-                            <span class="badge badge-danger badge-custom">-{{ p.get_percentage|floatformat:0 }}</span>
+                            <div class="featured__product__discount__percent">-{{ p.get_percentage|floatformat:0 }}%</div>
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
