@@ -19,6 +19,19 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+def category(request, title):
+    category = Category.objects.get(title=title)
+    product = Product.objects.filter(category=category).order_by("-date")
+
+    context = {
+        'category': category,
+        'products': product,
+        'breadcrumb_title': title
+    }
+
+    return render(request, 'category.html', context)
+
+
 def checkout(request):
     context = {
         'breadcrumb_title': 'Checkout'
