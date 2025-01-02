@@ -79,7 +79,7 @@
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">{{ p.title }}</a></h6>
+                            <h6><a href="{% url 'core:product-details' p.pid %}">{{ p.title }}</a></h6>
                             <h5>KSH{{ p.price }}</h5>
                         </div>
                     </div>

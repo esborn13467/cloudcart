@@ -64,10 +64,10 @@
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
             <li class="active"><a href="{% url 'core:index' %}">Home</a></li>
-            <li><a href="{% url 'core:product_list' %}">All Products</a></li>
+            <li><a href="{% url 'core:product-list' %}">All Products</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="{% url 'core:shop-details' %}">Shop Details</a></li>
+{#                    <li><a href="{% url 'core:shop-details' %}">Shop Details</a></li>#}
                     <li><a href="{% url 'core:shoping-cart' %}">Shoping Cart</a></li>
                     <li><a href="{% url 'core:checkout' %}">Check Out</a></li>
                 </ul>
@@ -143,10 +143,10 @@
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="{% url 'core:index' %}">Home</a></li>
-                        <li><a href="{% url 'core:product_list' %}">All Products</a></li>
+                        <li><a href="{% url 'core:product-list' %}">All Products</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'core:shop-details' %}">Shop Details</a></li>
+{#                                <li><a href="{% url 'core:shop-details' %}">Shop Details</a></li>#}
                                 <li><a href="{% url 'core:shoping-cart' %}">Shoping Cart</a></li>
                                 <li><a href="{% url 'core:checkout' %}">Check Out</a></li>
                             </ul>
@@ -272,7 +272,7 @@
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">{{ p.title }}</a></h6>
+                            <h6><a href="{% url 'core:product-details' p.pid %}">{{ p.title }}</a></h6>
                             <h5>KSH{{ p.price }}</h5>
                             <h6>By <a href="#"><i>{{ p.vendor }}</i></a></h6>
                         </div>
