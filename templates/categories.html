@@ -21,7 +21,7 @@
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="{% url 'core:category' title=c.title %}">{{ c.title }}</a></h6>
+                                <h6><a href="{% url 'core:category' c.title %}">{{ c.title }}</a></h6>
                                 <h5>{% if c.category.count == 0 %}No products
                                     {% elif c.category.count == 1 %}{{ c.category.count }} Product
                                     {% else %}{{ c.category.count }}
