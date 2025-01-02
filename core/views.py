@@ -3,7 +3,7 @@ from itertools import product
 from django.shortcuts import render
 from django.template.context_processors import request
 
-from core.models import Product, Category
+from core.models import Product, Category, Vendor
 
 
 # Create your views here.
@@ -33,7 +33,7 @@ def category(request, title):
     return render(request, 'category.html', context)
 
 
-def categories(request):
+def category_list(request):
     context = {
         'breadcrumb_title': "Categories",
         'breadcrumb_subtitle': "Categories"
@@ -41,6 +41,16 @@ def categories(request):
 
     return render(request, 'categories.html', context)
 
+
+def vendor_list(request):
+    vendor = Vendor.objects.all()
+    context = {
+        'vendors': vendor,
+        'breadcrumb_title': "Vendor List",
+        'breadcrumb_subtitle': "Vendor List"
+    }
+
+    return render(request, 'vendor-list.html', context)
 
 def checkout(request):
     context = {
