@@ -11,6 +11,7 @@ urlpatterns = [
     path('shop-grid/', views.shop_grid, name='shop-grid'),
     path('shoping-cart/', views.shoping_cart, name='shoping-cart'),
     path('category/<str:title>/', views.category, name='category'),
-    path('categories/', views.categories, name='categories'),
+    path('categories/', views.category_list, name='categories'),
+    path('vendors/', views.vendor_list, name='vendor-list'),
 
     ]
