@@ -52,6 +52,19 @@ def vendor_list(request):
 
     return render(request, 'vendor-list.html', context)
 
+
+def vendor_details(request, vid):
+    vendor = Vendor.objects.get(vid=vid)
+    products = Product.objects.filter(vendor=vendor, product_status="published")
+    context = {
+        'vendor': vendor,
+        'products': products,
+        'breadcrumb_title': "Vendor Details",
+        'breadcrumb_subtitle': "Vendors - " + vendor.title
+    }
+    return render(request, 'vendor-details.html', context)
+    
+    
 def checkout(request):
     context = {
         'breadcrumb_title': 'Checkout',
