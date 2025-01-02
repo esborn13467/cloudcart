@@ -52,7 +52,8 @@ class Tags(models.Model):
 class Vendor(models.Model):
     vid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='vendor', alphabet="abcdefghij")
     title = models.CharField(max_length=100, default="Vendor title")
-    image = models.ImageField(upload_to="vendor")
+    image = models.ImageField(upload_to="vendor", default="vendor.jpg")
+    cover_image = models.ImageField(upload_to="vendor", default="vendor.jpg")
     description = models.TextField(null=True, blank=True, default="This is the vendor description")
     address = models.CharField(max_length=100, default="Nairobi")
     contact = models.CharField(max_length=100, default="0712345678")
@@ -70,6 +71,9 @@ class Vendor(models.Model):
 
     def vendor_image(self):
         return mark_safe('<img src="%s" width="40" height="40" />' % self.image.url)
+
+    def vendor_cover_image(self):
+        return mark_safe('<img src="%s" width="40" height="40" />' % self.cover_image.url)
 
     def __str__(self):
         return self.title
