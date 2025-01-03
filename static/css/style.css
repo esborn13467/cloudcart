@@ -2946,11 +2946,11 @@ ol {
     }
 
     .product__details__tab .nav-tabs:before {
-        width: 265px;
+        width: 150px;
     }
 
     .product__details__tab .nav-tabs:after {
-        width: 265px;
+        width: 150px;
     }
 
     .shoping__discount form input {
@@ -2991,11 +2991,11 @@ ol {
     }
 
     .product__details__tab .nav-tabs:before {
-        width: 150px;
+        width: 50px;
     }
 
     .product__details__tab .nav-tabs:after {
-        width: 150px;
+        width: 50px;
     }
 
     .blog__details__author {
