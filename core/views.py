@@ -1,6 +1,6 @@
 from itertools import product
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.context_processors import request
 
 from core.models import Product, Category, Vendor
@@ -81,22 +81,27 @@ def contact(request):
     return render(request, 'contact.html', context)
 
 
-def shop_details(request):
+def product_details(request, pid):
+    product = Product.objects.get(pid=pid)
+    # products = get_object_or_404(Product, pid=pid)
+    product_image = product.product_images.all()
     context = {
-        'breadcrumb_title': 'Shop-details',
-        'breadcrumb_subtitle': 'Shop-details'
+        'product': product,
+        'product_images': product_image,
+        'breadcrumb_title': 'Product-details',
+        'breadcrumb_subtitle': 'Products/' + product.title
     }
-    return render(request, 'shop-details.html', context)
+    return render(request, 'product-details.html', context)
 
 
-def shop_grid(request):
+def product_list(request):
     product = Product.objects.all().order_by("-date")
     context = {
         'all_products': product,
-        'breadcrumb_title': 'Shop',
-        'breadcrumb_subtitle': 'Shop'
+        'breadcrumb_title': 'All Products',
+        'breadcrumb_subtitle': 'All Products'
     }
-    return render(request, 'shop-grid.html', context)
+    return render(request, 'product-list.html', context)
 
 
 def shoping_cart(request):
