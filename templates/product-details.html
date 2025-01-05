@@ -61,6 +61,17 @@
                         </div>
                         <a href="#" class="primary-btn">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <ul class="mt-1 pt-1 border-0">
+                            <li><b>Tags</b>
+                                {% for tag in product.tags.all %}
+                                    <a href="{% url 'core:tag-list' tag.slug %}">
+                                        <span>
+                                            <i>#{{ tag.name }}</i>
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </li>
+                        </ul>
                         <div class="row">
                             <div class="col-md-6">
                                 <ul>
@@ -83,11 +94,14 @@
                                         <span class="text-danger">Unverified address</span>
                                     {% endif %}
                                     <li><b>Vendor Address</b><br>
-                                    <span>{{ product.vendor.address|truncatechars:50 }}</span></li>
+                                        <a href="">
+                                            <span>{{ product.vendor.address|truncatechars:50 }}</span>
+                                        </a>
+                                    </li>
                                     <li><b>Vendor Contact</b>
-                                    <span>{{ product.vendor.contact }}</span></li>
-{#                                    <li><b>Vendor Rating</b>#}
-{#                                    <span>{{ product.vendor.rating }}</span></li>#}
+                                        <span>{{ product.vendor.contact }}</span></li>
+                                    {#                                    <li><b>Vendor Rating</b>#}
+                                    {#                                    <span>{{ product.vendor.rating }}</span></li>#}
                                 </ul>
                             </div>
                         </div>
@@ -160,9 +174,12 @@
                             </div>
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6><i class="fa fa-shield"></i>  <span>{{ product.vendor.authenticity_rating }}% authentic</span></h6>
-                                    <h6><i class="fa fa-clock-o"></i>  <span>{{ product.vendor.days_return }} days return</span></h6>
-                                    <h6><i class="fa fa-book"></i>  <span>{{ product.vendor.warranty_period }} months warranty</span></h6>
+                                    <h6><i class="fa fa-shield"></i> <span>{{ product.vendor.authenticity_rating }}% authentic</span>
+                                    </h6>
+                                    <h6><i class="fa fa-clock-o"></i>
+                                        <span>{{ product.vendor.days_return }} days return</span></h6>
+                                    <h6><i class="fa fa-book"></i> <span>{{ product.vendor.warranty_period }} months warranty</span>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -173,37 +190,39 @@
     </section>
     <!-- Product Details Section End -->
     {% if related_products %}
-    <!-- Related Product Section Begin -->
-    <section class="related-product">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title related__product__title">
-                        <h2>Related Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                {% for rp in related_products %}
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{ rp.image.url }}">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="{% url 'core:product-details' rp.pid %}">{{ rp.title|truncatechars:30 }}</a></h6>
-                            <h5>KSH{{ rp.price }}</h5>
+        <!-- Related Product Section Begin -->
+        <section class="related-product">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title related__product__title">
+                            <h2>Related Product</h2>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="row">
+                    {% for rp in related_products %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="{{ rp.image.url }}">
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>
+                                        <a href="{% url 'core:product-details' rp.pid %}">{{ rp.title|truncatechars:30 }}</a>
+                                    </h6>
+                                    <h5>KSH{{ rp.price }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- Related Product Section End -->
+        </section>
+        <!-- Related Product Section End -->
     {% else %}
         <div class="container">
             <div class="row">
