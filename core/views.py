@@ -2,6 +2,7 @@ from itertools import product
 
 from django.shortcuts import render, get_object_or_404
 from django.template.context_processors import request
+from taggit.models import Tag
 
 from core.models import Product, Category, Vendor
 
@@ -113,3 +114,21 @@ def shoping_cart(request):
 
     }
     return render(request, 'shoping-cart.html', context)
+
+
+def tag_list(request, tag_slug=None):
+    products = Product.objects.filter(product_status="published").order_by("-id")
+
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        products = products.filter(tags__in=[tag])
+
+    context = {
+        'products': products,
+        'tag': tag,
+        'breadcrumb_title': f'#{tag}',
+        'breadcrumb_subtitle': 'Products/Tags/'+tag_slug
+    }
+
+    return render(request, 'tag-list.html', context)
