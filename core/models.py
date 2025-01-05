@@ -1,8 +1,9 @@
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
-
 from userauths.models import User
+# from distutils.command.upload import upload
+from taggit.managers import TaggableManager
 
 STATUS_CHOICE = (
     ("process", "Processing"),
@@ -96,7 +97,8 @@ class Product(models.Model):
     life = models.CharField(max_length=100, default="10")
     manufacture_date = models.DateTimeField(null=True, blank=True, auto_now_add=False)
 
-    # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    tags = TaggableManager(blank=True)
+
     product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
