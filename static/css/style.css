@@ -2920,6 +2920,13 @@ ol {
     .container {
         max-width: 1170px;
     }
+    .product__details__tab .nav-tabs:before {
+        width: 200px;
+    }
+
+    .product__details__tab .nav-tabs:after {
+        width: 200px;
+    }
 }
 
 /* Medium Device = 1200px */
