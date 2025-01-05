@@ -85,8 +85,10 @@ def product_details(request, pid):
     product = Product.objects.get(pid=pid)
     # products = get_object_or_404(Product, pid=pid)
     product_image = product.product_images.all()
+    related_products = Product.objects.filter(category=product.category, product_status="published").exclude(pid=pid).order_by("-date")
     context = {
         'product': product,
+        'related_products': related_products,
         'product_images': product_image,
         'breadcrumb_title': 'Product-details',
         'breadcrumb_subtitle': 'Products/' + product.title
