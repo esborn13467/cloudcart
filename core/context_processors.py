@@ -5,9 +5,10 @@ def global_info(request):
     categories = Category.objects.all()
     address = None
     try:
-        address = Address.objects.get(user=request.user)
+        if request.user.is_authenticated:
+            address = Address.objects.get(user=request.user.id)
     except ObjectDoesNotExist:
-        pass
+        address = None
     return {
         'global_categories': categories,
         'address': address

@@ -4,6 +4,8 @@ from django.utils.html import mark_safe
 from userauths.models import User
 # from distutils.command.upload import upload
 from taggit.managers import TaggableManager
+from ckeditor_uploader.fields import RichTextUploadingField
+
 
 STATUS_CHOICE = (
     ("process", "Processing"),
@@ -55,7 +57,10 @@ class Vendor(models.Model):
     title = models.CharField(max_length=100, default="Vendor title")
     image = models.ImageField(upload_to="vendor", default="vendor.jpg")
     cover_image = models.ImageField(upload_to="vendor", default="vendor.jpg")
-    description = models.TextField(null=True, blank=True, default="This is the vendor description")
+    # description = models.TextField(null=True, blank=True, default="This is the vendor description")
+
+    description = RichTextUploadingField(null=True, blank=True, default="This is the vendor description")
+
     address = models.CharField(max_length=100, default="Nairobi")
     contact = models.CharField(max_length=100, default="0712345678")
     chat_response_time = models.CharField(max_length=100, default="100")
@@ -84,7 +89,9 @@ class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='product', alphabet="abcdefghij")
     title = models.CharField(max_length=100, default="Product title")
     image = models.ImageField(upload_to="user_directory_path", default="product.jpg")
-    description = models.TextField(null=True, blank=True, default="This is the product description")
+    # description = models.TextField(null=True, blank=True, default="This is the product description")
+
+    description = RichTextUploadingField(null=True, blank=True, default="This is the product description")
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
@@ -92,7 +99,9 @@ class Product(models.Model):
 
     price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
     old_price = models.DecimalField(max_digits=999999999999, decimal_places=2, default=0.00)
-    specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
+    # specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
+
+    specifications = RichTextUploadingField(null=True, blank=True, default="This is the product specifications")
     stock_count = models.CharField(max_length=100, default="10")
     life = models.CharField(max_length=100, default="10")
     manufacture_date = models.DateTimeField(null=True, blank=True, auto_now_add=False)
