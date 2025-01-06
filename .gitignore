@@ -11,6 +11,7 @@ __pycache__/
 db.sqlite3
 media
 staticfiles
+uploads/
 
 # IPython
 profile_default/

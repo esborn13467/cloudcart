@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     # Third party apps
     'taggit',
-
+    'ckeditor',
 
     # Custom apps
     'core',
@@ -149,3 +149,20 @@ JAZZMIN_SETTINGS = {
 }
 
 AUTH_USER_MODEL = 'userauths.User'
+
+# CKEDITOR CONFIGS
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'all',
+        'codeSnippet_theme': 'monokai',
+        'extraPlugins': ','.join(
+            [
+                'codesnippet',
+                'widget',
+                'dialog',
+            ]
+        ),
+    },
+}
